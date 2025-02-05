@@ -1,12 +1,21 @@
 const tablero = document.getElementById("tablero");
 const mensaje = document.getElementById("mensaje");
+const btnNext = document.getElementById('Siguiente');
 
-// Elementos de audio
+
 const sonidoAcierto = document.getElementById("sonidoAcierto");
 const sonidoError = document.getElementById("sonidoError");
 const sonidoVictoria = document.getElementById("sonidoVictoria");
 
-// Lista de imágenes (deben ser pares)
+document.addEventListener('DOMContentLoaded', () => {
+    btnNext.style.display = 'none';
+})
+
+btnNext.addEventListener('click', () => {
+    window.location.href = 'https://angelgonzalez01.github.io/Simondice/';
+})
+
+
 const imagenes = [
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNe9CZr3W7chzCps5tu8rzJAlK8RAJovjCHw&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNe9CZr3W7chzCps5tu8rzJAlK8RAJovjCHw&s",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJLl455lBgCABHibNCwfs_ZdDD_cu_2Lx2gLZuh0qodla41Bpx_zMqsHgBnO8NlOF_U_Y&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJLl455lBgCABHibNCwfs_ZdDD_cu_2Lx2gLZuh0qodla41Bpx_zMqsHgBnO8NlOF_U_Y&usqp=CAU",
@@ -18,7 +27,7 @@ const imagenes = [
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLMIt2OmY-S0QDSEldYhu2pTUqj63xfFOaEIAYSx-23StBwehmSJx9SRjNnZROtFqJqv8&usqp=CAU", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLMIt2OmY-S0QDSEldYhu2pTUqj63xfFOaEIAYSx-23StBwehmSJx9SRjNnZROtFqJqv8&usqp=CAU"
 ];
 
-// Mezclar las imágenes
+
 function mezclarImagenes(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -27,7 +36,7 @@ function mezclarImagenes(array) {
     return array;
 }
 
-// Crear las cartas
+
 function crearCartas() {
     const imagenesMezcladas = mezclarImagenes(imagenes);
     imagenesMezcladas.forEach((imagen, index) => {
@@ -45,11 +54,11 @@ function crearCartas() {
     });
 }
 
-// Variables para controlar el juego
+
 let cartasVolteadas = [];
 let bloqueado = false;
 
-// Función para voltear una carta
+
 function voltearCarta(event) {
     if (bloqueado) return;
 
@@ -64,25 +73,26 @@ function voltearCarta(event) {
     }
 }
 
-// Función para verificar si las cartas coinciden
+
 function verificarCoincidencia() {
     bloqueado = true;
 
     const [carta1, carta2] = cartasVolteadas;
     if (carta1.dataset.imagen === carta2.dataset.imagen) {
-        // Coinciden
-        sonidoAcierto.play(); // Reproduce el sonido de acierto
+        
+        sonidoAcierto.play();
         cartasVolteadas = [];
         bloqueado = false;
 
-        // Verificar si todas las cartas están volteadas
+        
         if (document.querySelectorAll(".carta.volteada").length === imagenes.length) {
-            sonidoVictoria.play(); // Reproduce el sonido de victoria
+            sonidoVictoria.play(); 
             mensaje.textContent = "¡Felicidades, ganaste!";
+            btnNext.style.display = 'block';
         }
     } else {
-        // No coinciden, voltear de nuevo después de un breve retraso
-        sonidoError.play(); // Reproduce el sonido de error
+        
+        sonidoError.play();
         setTimeout(() => {
             carta1.classList.remove("volteada");
             carta2.classList.remove("volteada");
@@ -92,6 +102,6 @@ function verificarCoincidencia() {
     }
 }
 
-// Iniciar el juego
+
 crearCartas();
 
