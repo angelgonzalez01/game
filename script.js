@@ -7,9 +7,6 @@ const sonidoAcierto = document.getElementById("sonidoAcierto");
 const sonidoError = document.getElementById("sonidoError");
 const sonidoVictoria = document.getElementById("sonidoVictoria");
 
-document.addEventListener('DOMContentLoaded', () => {
-    btnNext.style.display = 'none';
-})
 
 btnNext.addEventListener('click', () => {
     window.location.href = 'https://angelgonzalez01.github.io/Simondice/';
